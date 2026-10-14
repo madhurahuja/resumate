@@ -1,0 +1,15 @@
+import { launch } from './harness.mjs';
+const { browser, page, errors } = await launch();
+await page.goto('https://folio.test/'); await page.waitForTimeout(1500);
+await page.getByRole('button', { name: /import/i }).first().click();
+await page.waitForSelector('input[type=file]', { state: 'attached' });
+await page.setInputFiles('input[type=file]', 'e2e/fixtures/linkedin-sample.zip');
+await page.waitForSelector('text=Review imported resume', { timeout: 8000 });
+await page.screenshot({ path: 'e2e/out/li-review.png' });
+console.log(await page.$$eval('dialog input.in, [role=dialog] input[type=text], [role=dialog] input:not([type])', els => els.map(e => e.value)));
+console.log((await page.locator('dialog, [role=dialog]').innerText()).slice(0, 900));
+await page.getByRole('dialog').getByRole('button', { name: 'Import', exact: true }).click();
+await page.waitForTimeout(2500);
+console.log(await page.evaluate(() => document.body.innerText.slice(0, 1200)));
+console.log('errors', errors);
+await browser.close();

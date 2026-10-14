@@ -1,0 +1,75 @@
+import { launch } from './harness.mjs';
+import fs from 'fs';
+const { browser, page, errors } = await launch();
+const log = (...a) => console.log(...a);
+const ok = (c, m) => log(c ? 'PASS' : 'FAIL', m);
+const db = () => page.evaluate(() => JSON.parse(localStorage.getItem('mockdb')));
+const text = () => page.evaluate(() => document.querySelector('.rs') ? document.querySelector('.rs').innerText : '');
+await page.goto('https://folio.test/');
+await page.click('text=Try with sample data');
+await page.waitForSelector('button.open-link');
+await page.waitForTimeout(1000);
+const d0 = await db();
+const ids = Object.keys(d0).filter((k) => k.startsWith('resumes/'));
+const r1id = ids.find((k) => d0[k].name.startsWith('Principal')); const r2id = ids.find((k) => d0[k].name.startsWith('Staff'));
+const r2before = JSON.stringify(d0[r2id]); const masterBefore = JSON.stringify(d0['profile/master']);
+// edit r1: override experience title
+await page.click('button.open-link:text-is("Principal Architect – Harbor (sample)")');
+await page.waitForSelector('.rs-name');
+await page.click('.sec-card:has(h3:text-is("Experience")) .sec-head button[aria-expanded]');
+await page.click('.sec-card:has(h3:text-is("Experience")) .item-head .t >> nth=0');
+await page.getByLabel('Job title').first().fill('Chief Architect');
+await page.waitForTimeout(1500);
+ok((await text()).includes('Chief Architect'), 'r1 preview shows override');
+await page.screenshot({ path: 'e2e/out/10-override.png' });
+let d1 = await db();
+ok(JSON.stringify(d1[r2id]) === r2before, 'r2 document untouched after editing r1');
+ok(JSON.stringify(d1['profile/master']) === masterBefore, 'master untouched after editing r1 override');
+const ri = d1[r1id].sections.find((s) => s.items.some((i) => i.ov && i.ov.title));
+ok(!!ri, 'override stored only in r1 doc: ' + JSON.stringify(ri && ri.items.map(i=>i.ov)));
+// override chip + revert
+ok(await page.locator('text=Edited for this resume').count() > 0, 'override indicator visible');
+// duplicate r1
+await page.click('button[aria-label="Back to resumes"]');
+await page.waitForSelector('button.open-link');
+await page.click('article:has-text("Principal Architect – Harbor") button[aria-label^="Actions for"]');
+await page.click('role=menuitem[name="Duplicate"]');
+await page.waitForTimeout(1200);
+let d2 = await db();
+const ids2 = Object.keys(d2).filter((k) => k.startsWith('resumes/'));
+ok(ids2.length === 3, 'duplicate created: ' + ids2.length);
+const copyId = ids2.find((k) => d2[k].name.startsWith('Copy of'));
+const r1snap = JSON.stringify(d2[r1id]);
+// edit the copy: open it, remove first bullet via override
+await page.click('button.open-link >> text=Copy of Principal Architect');
+await page.waitForSelector('.rs-name');
+await page.click('.sec-card:has(h3:text-is("Experience")) .sec-head button[aria-expanded]');
+await page.click('.sec-card:has(h3:text-is("Experience")) .item-head .t >> nth=0');
+await page.getByLabel('Job title').first().fill('Distinguished Architect');
+await page.waitForTimeout(1500);
+let d3 = await db();
+ok(JSON.stringify(d3[r1id]) === r1snap, 'r1 unchanged after editing its copy');
+ok((await text()).includes('Distinguished Architect') && !(await text()).includes('Chief Architect'), 'copy shows own text');
+// master edit propagates
+await page.click('button[aria-label="Back to resumes"]');
+await page.click('button.nav-btn:has-text("Master profile")');
+await page.click('.sec-btn:has-text("Experience")');
+await page.click('.item-head .t >> nth=0');
+await page.getByLabel('Company').first().fill('Harbor Payments Inc');
+await page.waitForTimeout(1200);
+await page.click('button.nav-btn:has-text("Resumes")');
+await page.click('button.open-link:text-is("Principal Architect – Harbor (sample)")');
+await page.waitForSelector('.rs-name');
+const t1 = await text();
+ok(t1.includes('Harbor Payments Inc') && t1.includes('Chief Architect'), 'master edit flows in, override kept');
+await page.screenshot({ path: 'e2e/out/11-after-master-edit.png' });
+// overrides dialog + revert
+await page.click('button:has-text("Review changes")');
+await page.screenshot({ path: 'e2e/out/12-overrides.png' });
+await page.click('button:has-text("Revert"):not(:has-text("everything"))');
+await page.waitForTimeout(400);
+await page.keyboard.press('Escape');
+ok(!(await text()).includes('Chief Architect'), 'revert override restores master text');
+fs.writeFileSync('state.json', JSON.stringify({ r1id }));
+log('errors', errors.filter((e) => !e.includes('ERR_FAILED')));
+await browser.close();

@@ -1,0 +1,168 @@
+- generic [ref=f1e3]:
+  - navigation "Main" [ref=f1e4]:
+    - generic [ref=f1e5]:
+      - generic [aria-hidden] [ref=f1e6]: F
+      - generic [ref=f1e7]: Folio
+    - button "Resumes 1" [ref=f1e8] [cursor=pointer]:
+      - generic [ref=f1e12]: Resumes
+      - generic [ref=f1e13]: "1"
+    - button "Master profile" [ref=f1e14] [cursor=pointer]
+    - button "Compare" [ref=f1e19] [cursor=pointer]
+    - button "Data & backup" [ref=f1e24] [cursor=pointer]
+    - generic [ref=f1e30]:
+      - button "Appearance" [ref=f1e31] [cursor=pointer]
+      - generic [ref=f1e34]: Stored in this browser only
+  - main [ref=f1e35]:
+    - generic [ref=f1e36]:
+      - generic [ref=f1e37]:
+        - generic [ref=f1e38]:
+          - heading "Resumes" [level=1] [ref=f1e39]
+          - paragraph [ref=f1e40]: 1 active resume. Every one is generated from your master profile plus its own overrides.
+        - generic [ref=f1e41]:
+          - button "Import" [ref=f1e42] [cursor=pointer]
+          - button "New resume" [ref=f1e46] [cursor=pointer]
+      - generic [ref=f1e48]:
+        - searchbox "Search resumes" [ref=f1e50]
+        - generic [ref=f1e51]:
+          - combobox "Status" [ref=f1e52]:
+            - 'option "Status: active" [selected]'
+            - 'option "Status: all"'
+            - option "Draft only"
+            - option "Ready only"
+            - option "Submitted only"
+            - option "Archived only"
+          - combobox "Country" [ref=f1e53]:
+            - 'option "Country: all" [selected]'
+            - option "Canada"
+          - combobox "Language" [ref=f1e54]:
+            - 'option "Language: all" [selected]'
+            - option "English"
+          - combobox "Industry" [ref=f1e55]:
+            - 'option "Industry: all" [selected]'
+            - option "Banking & Finance"
+          - combobox "Company" [ref=f1e56]:
+            - 'option "Company: all" [selected]'
+            - option "Meridian Credit Union"
+          - combobox "Tag" [ref=f1e57]:
+            - 'option "Tag: all" [selected]'
+            - option "ba"
+            - option "sample"
+        - generic [ref=f1e58]:
+          - combobox "Sort by" [ref=f1e59]:
+            - 'option "Sort: Last modified" [selected]'
+            - 'option "Sort: Newest first"'
+            - 'option "Sort: Name"'
+            - 'option "Sort: Company"'
+            - 'option "Sort: Job title"'
+          - combobox "Group by" [ref=f1e60]:
+            - 'option "Group: No grouping" [selected]'
+            - 'option "Group: Company"'
+            - 'option "Group: Country"'
+            - 'option "Group: Industry"'
+            - 'option "Group: Status"'
+            - 'option "Group: Language"'
+            - 'option "Group: Job title"'
+          - group "View" [ref=f1e61]:
+            - button "Card view" [pressed] [ref=f1e62] [cursor=pointer]
+            - button "Table view" [ref=f1e68] [cursor=pointer]
+      - generic [ref=f1e70]: Showing 1 of 1
+      - region "Resumes" [ref=f1e72]:
+        - article "Business Analyst – Banking (sample)" [ref=f1e74]:
+          - generic [aria-hidden] [ref=f1e75]:
+            - generic:
+              - article:
+                - generic:
+                  - heading [level=1]: Neha Aggarwal
+                  - generic: Business Analyst – Banking & Financial Services
+                  - generic: Agg.neha@gmail.com | 905-226-5393 | Kitchener, ON | linkedin.com/in/aggneha
+                - generic:
+                  - heading [level=2]: Summary
+                  - paragraph: Business Analyst with 8+ years of experience in banking and financial services, with a track record of owning product backlogs, defining sprint-ready user stories and acceptance criteria, and aligning cross-functional teams around delivery outcomes. Skilled at translating business strategy into prioritized, executable work — bridging business intent and technical delivery across Agile and waterfall environments. Strong foundation in end-to-end requirements management, AS-IS / TO-BE process design, stakeholder facilitation, and UAT leadership.
+                - generic:
+                  - heading [level=2]: Skills
+                  - generic: "Software Development & Requirements: Software Development Life Cycles (Waterfall, Agile and Hybrid), Requirements Elicitation & Acceptance Criteria, Gap Analysis & Solution Evaluation, Product Solution Mapping"
+                  - generic: "Stakeholder & Process Management: Stakeholder Management & Workshop Facilitation, Solution Presentation & Product Demos, Cross Functional Team Collaboration, Product Backlog Management"
+                  - generic: "Technical & Process Design: Process Mapping (AS-IS / TO-BE), Go-Live Readiness, UAT Planning & Release Readiness"
+                - generic:
+                  - heading [level=2]: Experience
+                  - generic:
+                    - generic:
+                      - generic: Contact Center Representative
+                      - generic: Nov 2025 – Present
+                    - generic: Meridian Credit Union
+                    - paragraph: Deliver exceptional service across phone, written, and electronic channels, resolving inquiries with empathy and accuracy.
+                    - list:
+                      - listitem: Address Member requests, inquiries, and escalations with Member-focused approach aligned with organizational service standards.
+                      - listitem: Navigate core company systems—including CRM, Encore, Five9, and UltiPro—alongside standard software to streamline Member support.
+                      - listitem: Troubleshoot and resolve online banking, e-Transfer, ABM/POS operations, Visa support, and card maintenance requests within established timelines.
+                      - listitem: Embody corporate values and foster trust in every interaction with Members across all lines of business.
+                  - generic:
+                    - generic:
+                      - generic: Product Owner / Business Analyst
+                      - generic: Apr 2010 – Apr 2014
+                    - generic: Infosys Limited
+                    - paragraph: Owned product backlog for banking initiatives spanning customer onboarding, lending, and servicing workflows.
+                    - list:
+                      - listitem: Defined user stories, acceptance criteria, and sprint-ready work items aligned to business priorities.
+                      - listitem: Led backlog grooming, sprint planning sessions, and stakeholder walkthroughs to maintain delivery focus.
+                      - listitem: Defined AS-IS / TO-BE process flows and user journeys across business, operations, and technology teams.
+                      - listitem: Identified gaps between business intent and system capabilities; evaluated solution options and drove prioritization decisions.
+                      - listitem: Owned UAT planning and release readiness for five major product releases—including scenario design, defect triage, and go/no-go assessment.
+                  - generic:
+                    - generic:
+                      - generic: Business Analyst / Functional Consultant – Banking Platforms
+                      - generic: Jun 2006 – Apr 2009
+                    - generic: Nucleus Software Exports Limited
+                    - paragraph: Contributed to end-to-end delivery of core banking platform supporting customer and lending workflows.
+                    - list:
+                      - listitem: Translated business needs into implementable functional requirements and sprint-ready specifications.
+                      - listitem: Validated functional behavior during UAT cycles; coordinated defect resolution with delivery teams.
+                      - listitem: Reduced turnaround time for key workflows by clarifying process steps and minimizing defects through early requirement alignment.
+                  - generic:
+                    - generic:
+                      - generic: Operations Analyst
+                      - generic: May 2024 – Present
+                    - generic: Williamsburg Community Garden
+                    - paragraph: Digitized operational workflows and intake/registration processes.
+                    - list:
+                      - listitem: Reduced turnaround time from one week to one day through structured process redesign and improved information flow.
+                      - listitem: Designed process flows and lightweight documentation to improve accessibility and standardize execution for volunteers.
+                      - listitem: Applied core PO/BA methods to deliver measurable operational improvements in a resource-constrained environment.
+                - generic:
+                  - heading [level=2]: Education
+                  - generic:
+                    - generic: Foundation of Business Analysis
+                    - generic: University of Toronto
+                  - generic:
+                    - generic: MBA (Operations)
+                    - generic: Indira Gandhi National Open University
+                  - generic:
+                    - generic: B.Tech – Computer Engineering
+                    - generic: Punjab Technical University
+                - generic:
+                  - heading [level=2]: Certifications
+                  - generic: Professional Scrum Product Owner (PSPO) — Scrum Alliance
+                  - generic: Professional Scrum Master (PSM) — Scrum Alliance
+                  - generic: Canadian Securities Course (CSC) — CSI
+                - generic:
+                  - heading [level=2]: Languages
+                  - paragraph: English (Fluent) • Hindi (Fluent) • Punjabi (Fluent)
+          - generic [ref=f1e76]:
+            - generic [ref=f1e77]:
+              - heading [level=3] [ref=f1e78]:
+                - button "Business Analyst – Banking (sample)" [ref=f1e79] [cursor=pointer]
+              - button "Actions for Business Analyst – Banking (sample)" [ref=f1e81] [cursor=pointer]
+            - generic [ref=f1e86]: Business Analyst @ Meridian Credit Union
+            - generic [ref=f1e87]:
+              - generic [ref=f1e88]: Draft
+              - generic [ref=f1e89]: Canada
+              - generic [ref=f1e90]: English
+              - generic [ref=f1e91]: Banking & Finance
+              - generic [ref=f1e92]: sample
+              - generic [ref=f1e93]: ba
+            - generic [ref=f1e94]:
+              - generic "Oct 10, 2026, 10:58 PM" [ref=f1e95]: Edited just now
+              - generic [ref=f1e96]: 1 version
+              - generic [ref=f1e97]: Fully linked
+              - generic [ref=f1e98]: Executive · US Letter
+  - status

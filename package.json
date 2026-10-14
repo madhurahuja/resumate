@@ -1,0 +1,32 @@
+{
+  "name": "resumate",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "node e2e/run.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
+    "docx": "^8.5.0",
+    "htm": "^3.1.1",
+    "jszip": "^3.10.2",
+    "mammoth": "^1.6.0",
+    "pdfjs-dist": "^3.11.174",
+    "pdfmake": "^0.2.7",
+    "preact": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/pdfmake": "^0.3.3",
+    "jsdom": "^29.1.1",
+    "playwright-core": "^1.64.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  }
+}

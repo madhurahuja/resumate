@@ -1,0 +1,208 @@
+- generic [ref=e3]:
+  - navigation "Main" [ref=e4]:
+    - generic [aria-hidden] [ref=e6]: F
+    - button "Resumes" [ref=e129] [cursor=pointer]
+    - button "Master profile" [ref=e14] [cursor=pointer]
+    - button "Compare" [ref=e19] [cursor=pointer]
+    - button "Data & backup" [ref=e24] [cursor=pointer]
+  - main [ref=e35]:
+    - generic [ref=e130]:
+      - generic [ref=e131]:
+        - button "Back to resumes" [ref=e132] [cursor=pointer]
+        - generic [ref=e135]:
+          - generic [ref=e136]: Resume name
+          - textbox "Resume name" [ref=e137]: Business Analyst – Banking (sample)
+        - combobox "Status" [ref=e138]:
+          - option "Draft" [selected]
+          - option "Ready"
+          - option "Submitted"
+          - option "Archived"
+        - status [ref=e139]:
+          - generic [ref=e141]: Saved 10:57 PM
+        - generic [ref=e142]:
+          - button "Undo" [disabled] [ref=e143]
+          - button "Redo" [disabled] [ref=e147]
+        - button "Export" [ref=e152] [cursor=pointer]
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - tablist "Editor sections" [ref=e158]:
+            - tab "Content" [ref=e159] [cursor=pointer]
+            - tab "Design" [active] [selected] [ref=e160] [cursor=pointer]
+            - tab "Details" [ref=e161] [cursor=pointer]
+            - tab "Tailor" [ref=e162] [cursor=pointer]
+            - tab "Versions" [ref=e163] [cursor=pointer]
+          - tabpanel [ref=e164]:
+            - generic [ref=e504]:
+              - generic [ref=e505]:
+                - generic [ref=e506]: Template
+                - generic [ref=e507]:
+                  - button "Classic Serif, centred header, ruled headings. Safe for any employer." [ref=e508] [cursor=pointer]:
+                    - generic [ref=e514]: Classic
+                    - generic [ref=e515]: Serif, centred header, ruled headings. Safe for any employer.
+                  - button "Modern Sans, left header, accent headings. Easy to scan." [pressed] [ref=e516] [cursor=pointer]:
+                    - generic [ref=e522]: Modern
+                    - generic [ref=e523]: Sans, left header, accent headings. Easy to scan.
+                  - button "Compact Dense, 9.5 pt. Fits long careers on two pages." [ref=e524] [cursor=pointer]:
+                    - generic [ref=e530]: Compact
+                    - generic [ref=e531]: Dense, 9.5 pt. Fits long careers on two pages.
+                  - button "Minimal Airy headings, no rules. Works well in Roboto." [ref=e532] [cursor=pointer]:
+                    - generic [ref=e538]: Minimal
+                    - generic [ref=e539]: Airy headings, no rules. Works well in Roboto.
+                  - button "Executive Large centred name, bold ink rules. Senior and leadership roles." [ref=e540] [cursor=pointer]:
+                    - generic [ref=e546]: Executive
+                    - generic [ref=e547]: Large centred name, bold ink rules. Senior and leadership roles.
+                  - button "Bold Strong accent colour throughout. Stands out while staying plain-text." [ref=e548] [cursor=pointer]:
+                    - generic [ref=e554]: Bold
+                    - generic [ref=e555]: Strong accent colour throughout. Stands out while staying plain-text.
+                  - button "Elegant Sentence-case headings, no rules, generous spacing. Quietly refined." [ref=e556] [cursor=pointer]:
+                    - generic [ref=e562]: Elegant
+                    - generic [ref=e563]: Sentence-case headings, no rules, generous spacing. Quietly refined.
+                  - button "Technical Tight, left-aligned, accent headings. Built for engineering resumes." [ref=e564] [cursor=pointer]:
+                    - generic [ref=e570]: Technical
+                    - generic [ref=e571]: Tight, left-aligned, accent headings. Built for engineering resumes.
+                  - button "Academic Centred, airy, grey rules. Suits research and education CVs." [ref=e572] [cursor=pointer]:
+                    - generic [ref=e578]: Academic
+                    - generic [ref=e579]: Centred, airy, grey rules. Suits research and education CVs.
+                  - button "Two-tone Accent name, ink headings with a thin accent rule. Balanced contrast." [ref=e580] [cursor=pointer]:
+                    - generic [ref=e586]: Two-tone
+                    - generic [ref=e587]: Accent name, ink headings with a thin accent rule. Balanced contrast.
+              - generic [ref=e588]: All templates are single-column with real text and standard headings, which is what applicant tracking systems read best.
+              - generic [ref=e589]:
+                - generic [ref=e590]: Page size
+                - group "Page size" [ref=e591]:
+                  - button "US Letter" [pressed] [ref=e592] [cursor=pointer]
+                  - button "A4" [ref=e593] [cursor=pointer]
+              - generic [ref=e594]: "Typeface: Roboto in preview and PDF (embedded). Word files use Calibri so they open anywhere."
+              - generic [ref=e595]:
+                - generic [ref=e596]: Font size
+                - generic [ref=e597]:
+                  - slider "Font size" [ref=e598]: "10.5"
+                  - generic [ref=e599]: 10.5 pt
+              - generic [ref=e600]:
+                - generic [ref=e601]: Line spacing
+                - generic [ref=e602]:
+                  - slider "Line spacing" [ref=e603]: "1.3"
+                  - generic [ref=e604]: "1.30"
+              - generic [ref=e605]:
+                - generic [ref=e606]: Page margins
+                - generic [ref=e607]:
+                  - slider "Page margins" [ref=e608]: "0.75"
+                  - generic [ref=e609]: 0.75 in
+              - generic [ref=e610]:
+                - generic [ref=e611]: Space between sections
+                - generic [ref=e612]:
+                  - slider "Space between sections" [ref=e613]: "12"
+                  - generic [ref=e614]: 12 pt
+              - generic [ref=e615]:
+                - generic [ref=e616]: Accent colour
+                - generic [ref=e617]:
+                  - generic [ref=e618]:
+                    - 'button "Accent #2243c9" [pressed] [ref=e619] [cursor=pointer]'
+                    - 'button "Accent #0f766e" [ref=e620] [cursor=pointer]'
+                    - 'button "Accent #7c3aed" [ref=e621] [cursor=pointer]'
+                    - 'button "Accent #b45309" [ref=e622] [cursor=pointer]'
+                    - 'button "Accent #be123c" [ref=e623] [cursor=pointer]'
+                    - 'button "Accent #1f2937" [ref=e624] [cursor=pointer]'
+                  - textbox "Custom accent colour" [ref=e625]: "#2243c9"
+              - generic [ref=e626]:
+                - generic [ref=e627]: Date format
+                - combobox "Date format" [ref=e628]:
+                  - option "MMM YYYY" [selected]
+                  - option "Month YYYY"
+                  - option "MM/YYYY"
+                  - option "YYYY"
+                - generic [ref=e629]: Month names follow the resume language.
+              - button "Reset to template defaults" [ref=e631] [cursor=pointer]
+        - generic [ref=e386]:
+          - generic [ref=e387]:
+            - generic [ref=e388]: US Letter
+            - generic [ref=e389]: Modern
+            - generic [ref=e390]: ≈ 2 pages
+            - generic [ref=e391]:
+              - button "Zoom out" [ref=e392] [cursor=pointer]
+              - button "Fit" [pressed] [ref=e394] [cursor=pointer]
+              - button "Zoom in" [ref=e395] [cursor=pointer]
+          - generic [ref=e399]:
+            - article [ref=e400]:
+              - generic [ref=e401]:
+                - heading "Neha Aggarwal" [level=1] [ref=e402]
+                - generic [ref=e403]: Business Analyst – Banking & Financial Services
+                - generic [ref=e404]: Agg.neha@gmail.com | 905-226-5393 | Kitchener, ON | linkedin.com/in/aggneha
+              - generic [ref=e405]:
+                - heading "Summary" [level=2] [ref=e406]
+                - paragraph [ref=e407]: Business Analyst with 8+ years of experience in banking and financial services, with a track record of owning product backlogs, defining sprint-ready user stories and acceptance criteria, and aligning cross-functional teams around delivery outcomes. Skilled at translating business strategy into prioritized, executable work — bridging business intent and technical delivery across Agile and waterfall environments. Strong foundation in end-to-end requirements management, AS-IS / TO-BE process design, stakeholder facilitation, and UAT leadership.
+              - generic [ref=e408]:
+                - heading "Experience" [level=2] [ref=e409]
+                - generic [ref=e410]:
+                  - generic [ref=e411]:
+                    - generic [ref=e412]: Contact Center Representative
+                    - generic [ref=e413]: Nov 2025 – Present
+                  - generic [ref=e414]: Meridian Credit Union
+                  - paragraph [ref=e416]: Deliver exceptional service across phone, written, and electronic channels, resolving inquiries with empathy and accuracy.
+                  - list [ref=e417]:
+                    - listitem [ref=e418]: Address Member requests, inquiries, and escalations with Member-focused approach aligned with organizational service standards.
+                    - listitem [ref=e419]: Navigate core company systems—including CRM, Encore, Five9, and UltiPro—alongside standard software to streamline Member support.
+                    - listitem [ref=e420]: Troubleshoot and resolve online banking, e-Transfer, ABM/POS operations, Visa support, and card maintenance requests within established timelines.
+                    - listitem [ref=e421]: Embody corporate values and foster trust in every interaction with Members across all lines of business.
+                - generic [ref=e422]:
+                  - generic [ref=e423]:
+                    - generic [ref=e424]: Product Owner / Business Analyst
+                    - generic [ref=e425]: Apr 2010 – Apr 2014
+                  - generic [ref=e426]: Infosys Limited
+                  - paragraph [ref=e428]: Owned product backlog for banking initiatives spanning customer onboarding, lending, and servicing workflows.
+                  - list [ref=e429]:
+                    - listitem [ref=e430]: Defined user stories, acceptance criteria, and sprint-ready work items aligned to business priorities.
+                    - listitem [ref=e431]: Led backlog grooming, sprint planning sessions, and stakeholder walkthroughs to maintain delivery focus.
+                    - listitem [ref=e432]: Defined AS-IS / TO-BE process flows and user journeys across business, operations, and technology teams.
+                    - listitem [ref=e433]: Identified gaps between business intent and system capabilities; evaluated solution options and drove prioritization decisions.
+                    - listitem [ref=e434]: Owned UAT planning and release readiness for five major product releases—including scenario design, defect triage, and go/no-go assessment.
+                - generic [ref=e435]:
+                  - generic [ref=e436]:
+                    - generic [ref=e437]: Business Analyst / Functional Consultant – Banking Platforms
+                    - generic [ref=e438]: Jun 2006 – Apr 2009
+                  - generic [ref=e439]: Nucleus Software Exports Limited
+                  - paragraph [ref=e441]: Contributed to end-to-end delivery of core banking platform supporting customer and lending workflows.
+                  - list [ref=e442]:
+                    - listitem [ref=e443]: Translated business needs into implementable functional requirements and sprint-ready specifications.
+                    - listitem [ref=e444]: Validated functional behavior during UAT cycles; coordinated defect resolution with delivery teams.
+                    - listitem [ref=e445]: Reduced turnaround time for key workflows by clarifying process steps and minimizing defects through early requirement alignment.
+                - generic [ref=e446]:
+                  - generic [ref=e447]:
+                    - generic [ref=e448]: Operations Analyst
+                    - generic [ref=e449]: May 2024 – Present
+                  - generic [ref=e450]: Williamsburg Community Garden
+                  - paragraph [ref=e452]: Digitized operational workflows and intake/registration processes.
+                  - list [ref=e453]:
+                    - listitem [ref=e454]: Reduced turnaround time from one week to one day through structured process redesign and improved information flow.
+                    - listitem [ref=e455]: Designed process flows and lightweight documentation to improve accessibility and standardize execution for volunteers.
+                    - listitem [ref=e456]: Applied core PO/BA methods to deliver measurable operational improvements in a resource-constrained environment.
+              - generic [ref=e457]:
+                - heading "Education" [level=2] [ref=e458]
+                - generic [ref=e459]:
+                  - generic [ref=e460]: Foundation of Business Analysis
+                  - generic [ref=e462]: University of Toronto
+                - generic [ref=e464]:
+                  - generic [ref=e465]: MBA (Operations)
+                  - generic [ref=e467]: Indira Gandhi National Open University
+                - generic [ref=e469]:
+                  - generic [ref=e470]: B.Tech – Computer Engineering
+                  - generic [ref=e472]: Punjab Technical University
+              - generic [ref=e474]:
+                - heading "Skills" [level=2] [ref=e475]
+                - generic [ref=e476]: "Software Development & Requirements: Software Development Life Cycles (Waterfall, Agile and Hybrid), Requirements Elicitation & Acceptance Criteria, Gap Analysis & Solution Evaluation, Product Solution Mapping"
+                - generic [ref=e479]: "Stakeholder & Process Management: Stakeholder Management & Workshop Facilitation, Solution Presentation & Product Demos, Cross Functional Team Collaboration, Product Backlog Management"
+                - generic [ref=e482]: "Technical & Process Design: Process Mapping (AS-IS / TO-BE), Go-Live Readiness, UAT Planning & Release Readiness"
+              - generic [ref=e485]:
+                - heading "Certifications" [level=2] [ref=e486]
+                - generic [ref=e487]: Professional Scrum Product Owner (PSPO) — Scrum Alliance
+                - generic [ref=e490]: Professional Scrum Master (PSM) — Scrum Alliance
+                - generic [ref=e493]: Canadian Securities Course (CSC) — CSI
+              - generic [ref=e496]:
+                - heading "Languages" [level=2] [ref=e497]
+                - paragraph [ref=e498]: English (Fluent) • Hindi (Fluent) • Punjabi (Fluent)
+            - generic [aria-hidden]:
+              - generic: Page 2 starts here (approx.)
+          - generic [ref=e499]:
+            - 'button "ATS check: 1 note" [ref=e500] [cursor=pointer]'
+            - generic [ref=e503]: Layout is approximate; the exported file is validated when you export.
+  - status

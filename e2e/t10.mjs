@@ -1,0 +1,16 @@
+import { launch } from './harness.mjs';
+const { browser, page, errors } = await launch();
+await page.goto('https://folio.test/'); await page.waitForTimeout(1200);
+const bg = () => page.evaluate(() => { const c = getComputedStyle(document.documentElement); return [c.getPropertyValue('--accent').trim(), getComputedStyle(document.body).backgroundColor]; });
+console.log('default', await bg());
+await page.getByRole('button', { name: 'Appearance' }).click();
+await page.getByRole('button', { name: /Forest/ }).click(); console.log('forest', await bg());
+await page.getByRole('button', { name: 'Dark', exact: true }).click(); console.log('forest dark', await bg());
+await page.screenshot({ path: 'e2e/out/theme-dark.png' });
+await page.getByRole('button', { name: 'System', exact: true }).click();
+await page.getByRole('button', { name: 'Light', exact: true }).click(); await page.getByRole('button', { name: /Ember/ }).click(); console.log('ember light', await bg());
+await page.screenshot({ path: 'e2e/out/theme-light.png' });
+await page.getByRole('button', { name: 'Done' }).click();
+await page.reload(); await page.waitForTimeout(1000); console.log('after reload', await bg());
+console.log(errors.filter(e=>!/ERR_FAILED/.test(e)));
+await browser.close();
