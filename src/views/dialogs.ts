@@ -243,6 +243,45 @@ export function CompareView({ A }) {
 }
 
 /* ----- data view ----- */
+export function ProfileDialog({ A }) {
+  const user = A.auth && A.auth.user ? A.auth.user : null;
+  const email = user && user.email ? user.email : 'Google account';
+  const name = user && user.name ? user.name : email;
+  const avatar = user && user.avatarUrl ? user.avatarUrl : null;
+  const initials = (() => {
+    const raw = name || email || 'R';
+    const parts = raw.split(/[\s@._-]+/).filter(Boolean);
+    const letters = parts.length >= 2 ? [parts[0][0], parts[1][0]] : [raw[0], raw[1] || raw[0]];
+    return letters.map((ch) => ch && ch.toUpperCase()).join('').slice(0, 2) || 'R';
+  })();
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+  return html`<${Dialog} title="Account" onClose=${A.closeDialog} wide foot=${html`<button type="button" class="btn" onClick=${A.closeDialog}><${Icon} n="x" />Close</button>`}>
+    <div class="stack" style="gap:18px">
+      <div class="panel" style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:18px;border-radius:14px">
+        <div class="userchip-avatar" style="width:52px;height:52px;border-radius:16px;font-size:18px">${avatar ? html`<img src=${avatar} alt="" style="width:100%;height:100%;object-fit:cover;border-radius:16px;display:block" />` : initials}</div>
+        <div style="display:grid;gap:4px;min-width:0">
+          <b style="font-size:23px;line-height:1.2;overflow-wrap:anywhere">${name}</b>
+          <div class="muted">${email}</div>
+          <div class="muted">${A.mode === 'supabase' ? 'Signed in with Google through Supabase' : 'Authenticated in this app'}</div>
+        </div>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div class="panel stack" style="padding:14px;border-radius:12px">
+          <h3 style="font-size:16px">Account</h3>
+          <div class="statline"><span class="muted">Provider</span><b>${A.auth && A.auth.provider === 'supabase-google' ? 'Google' : 'App session'}</b></div>
+          <div class="statline"><span class="muted">Storage</span><b>${A.mode === 'supabase' ? 'Supabase private database' : A.mode === 'cloud' ? 'Claude private database' : 'Browser-local only'}</b></div>
+        </div>
+        <div class="panel stack" style="padding:14px;border-radius:12px">
+          <h3 style="font-size:16px">Actions</h3>
+          <button type="button" class="btn danger" disabled=${busy} onClick=${async () => { setErr(''); setBusy(true); try { await A.signOut(); location.reload(); } catch (e) { setErr((e && e.message) || 'Could not sign out.'); setBusy(false); } }}><${Icon} n="x" />${busy ? 'Signing out…' : 'Sign out'}</button>
+          ${err && html`<div class="callout bad" role="alert">${err}</div>`}
+        </div>
+      </div>
+    </div>
+  </${Dialog}>`;
+}
+
 export function DataPage({ A }) {
   const [confirmTxt, setConfirmTxt] = useState('');
   const [authBusy, setAuthBusy] = useState(false);

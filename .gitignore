@@ -1,4 +1,10 @@
-node_modules
-dist
-e2e/out
+node_modules/
+dist/
+e2e/out/
+.env
+.env.local
+.env.*.local
+.vite/
+.DS_Store
+npm-debug.log*
 *.log

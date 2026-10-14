@@ -17,7 +17,7 @@ export interface Adapter {
 export interface AuthState {
   provider: 'none' | 'supabase-google';
   required: boolean;
-  user: null | { id: string; email?: string };
+  user: null | { id: string; email?: string; name?: string; avatarUrl?: string | null };
 }
 
 /* ---------- cloud adapter: Claude artifact runtime's shared db capability ---------- */
@@ -195,7 +195,13 @@ export const Store = {
         this.adapter = supabaseAdapter(sb.client, sb.schema, sb.table);
         this.mode = 'supabase';
         this.backend = 'supabase';
-        this.auth = { provider: 'supabase-google', required: false, user: { id: user.id, email: user.email || '' } };
+        const authUser = {
+          id: user.id,
+          email: user.email || '',
+          name: user.user_metadata?.full_name || user.user_metadata?.name || user.email || '',
+          avatarUrl: user.user_metadata?.avatar_url || user.user_metadata?.picture || user.user_metadata?.image_url || null,
+        };
+        this.auth = { provider: 'supabase-google', required: false, user: authUser };
         return this.mode;
       } catch (e) {
         throw new Error('Supabase is configured but failed to initialize: ' + ((e && e.message) || 'Unknown error'));

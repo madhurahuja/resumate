@@ -25,9 +25,18 @@ export function App() {
   const [route, setRoute] = useState<any>({ name: 'dashboard' }); const [dlg, setDlg] = useState<any>(null); const [toasts, setToasts] = useState<any[]>([]);
   const [saveStatus, setSaveStatus] = useState(Saver.status); const [, setTick] = useState(0);
   const S = useRef<{ master: Master | null; resumes: Record<string, Resume>; route: any }>({ master: null, resumes: {}, route }); S.current.route = route;
-  const stacks = useRef<any>({}); const pendingDel = useRef<any>({}); const pruneT = useRef<any>({});
+  const accountMenu = useRef<HTMLDivElement | null>(null); const stacks = useRef<any>({}); const pendingDel = useRef<any>({}); const pruneT = useRef<any>({});
 
   useEffect(() => Saver.on(setSaveStatus), []);
+  useEffect(() => {
+    if (!dlg || dlg.type !== 'account') return;
+    const onPointerDown = (e: PointerEvent) => {
+      const el = e.target as Node | null;
+      if (accountMenu.current && el && !accountMenu.current.contains(el)) setDlg(null);
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [dlg]);
   useEffect(() => {
     const isTypingTarget = (el) => {
       if (!el) return false;
@@ -266,23 +275,34 @@ export function App() {
     return () => { unsubs.forEach((u) => u()); window.removeEventListener('pagehide', kill); };
   }, []);
 
-  if (boot.phase === 'loading') return html`<div class="empty" style="height:100%;align-content:center" role="status"><div class="brand-mark">F</div><p>Opening your resumes…</p></div>`;
+  if (boot.phase === 'loading') return html`<div class="empty" style="height:100%;align-content:center" role="status"><div class="brand-mark">R</div><p>Opening your resumes…</p></div>`;
   if (boot.phase === 'auth') return html`<div class="auth-shell" role="main">
     <div class="auth-card">
-      <img class="auth-logo" src="/resumate.logo.gif" alt="Resumate" />
-      <h2>Sign in to sync with Supabase</h2>
-      <p class="muted">Use your Google account to load and sync your resumes from your private Supabase workspace.</p>
-      ${authErr && html`<div class="callout bad" role="alert">${authErr}</div>`}
-      <button type="button" class="btn primary" disabled=${authBusy} onClick=${async () => {
-        setAuthErr(''); setAuthBusy(true);
-        try { await Store.signInWithGoogle(); }
-        catch (e) { setAuthErr((e && e.message) || 'Sign-in failed.'); setAuthBusy(false); }
-      }}><${Icon} n="link" />${authBusy ? 'Opening Google sign-in…' : 'Continue with Google'}</button>
+      <div class="auth-logo-band"><img class="auth-logo" src="/resumate.logo.gif" alt="Resumate" /></div>
+      <div class="auth-content">
+        <h2>Welcome back</h2>
+        <p class="muted">Use your Google account to access your resumes and keep everything synced.</p>
+        ${authErr && html`<div class="callout bad" role="alert">${authErr}</div>`}
+        <button type="button" class="btn primary" disabled=${authBusy} onClick=${async () => {
+          setAuthErr(''); setAuthBusy(true);
+          try { await Store.signInWithGoogle(); }
+          catch (e) { setAuthErr((e && e.message) || 'Sign-in failed.'); setAuthBusy(false); }
+        }}><${Icon} n="link" />${authBusy ? 'Opening Google sign-in…' : 'Continue with Google'}</button>
+      </div>
     </div>
   </div>`;
   if (boot.phase === 'error') return html`<div class="empty" style="height:100%;align-content:center" role="alert"><h2>Could not open your data</h2><p>${boot.err}</p><button type="button" class="btn primary" onClick=${() => location.reload()}><${Icon} n="restore" />Try again</button></div>`;
 
   const api = { ...A, master, resumes, saveStatus, mode: Store.mode, auth: Store.auth };
+  const userEmail = Store.auth.user?.email || (Store.auth.user ? 'Google account' : '');
+  const userName = Store.auth.user?.name || userEmail || 'Google account';
+  const userAvatar = Store.auth.user?.avatarUrl || null;
+  const userInitials = (() => {
+    const raw = userName || 'R';
+    const parts = raw.split(/[\s@._-]+/).filter(Boolean);
+    const letters = parts.length >= 2 ? [parts[0][0], parts[1][0]] : [raw[0], raw[1] || raw[0]];
+    return letters.map((ch) => ch && ch.toUpperCase()).join('').slice(0, 2) || 'R';
+  })();
   const nRes = Object.values(resumes).filter((r) => r.status !== 'archived').length;
   const nav = [['dashboard', 'Resumes', 'file', nRes], ['master', 'Master profile', 'user', null], ['compare', 'Compare', 'compare', null], ['data', 'Data & backup', 'database', null]];
   const cur = route.name === 'editor' ? 'dashboard' : route.name;
@@ -310,7 +330,38 @@ export function App() {
     <nav class="rail" aria-label="Main">
       <div class="brand"><img class="brand-logo" src="/resumate.logo.png" alt="" aria-hidden="true" /><span class="brand-name">Resumate</span></div>
       ${nav.map(([k, l, ic, n]) => html`<button type="button" class="nav-btn" key=${k} aria-current=${cur === k ? 'page' : undefined} onClick=${() => api.go({ name: k })} title=${l}><${Icon} n=${ic} /><span class="nav-label">${l}</span>${n != null && html`<span class="nav-count">${n}</span>`}</button>`)}
-      <div class="rail-foot"><button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'command' })} title="Quick actions (Ctrl/Cmd+K)"><${Icon} n="search" /><span class="nav-label">Quick actions</span></button><button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'appearance' })} title="Appearance"><${Icon} n="sliders" /><span class="nav-label">Appearance</span></button><button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'shortcuts' })} title="Keyboard shortcuts"><${Icon} n="info" /><span class="nav-label">Keyboard shortcuts</span></button><span class="nav-label">${Store.mode === 'cloud' || Store.mode === 'supabase' ? 'Private store, syncs across your devices' : 'Stored in this browser only'}</span></div>
+      <div class="rail-foot">
+        ${Store.auth.user ? html`<div class="user-menu-wrap" ref=${accountMenu}>
+          <button type="button" class="userchip" aria-live="polite" title="Account menu" onClick=${() => setDlg((d) => d && d.type === 'account' ? null : { type: 'account' })}>
+            <div class="userchip-avatar" aria-hidden="true">${userAvatar ? html`<img src=${userAvatar} alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block" />` : userInitials}</div>
+            <div class="userchip-copy">
+              <div class="userchip-name">${userName || userEmail || 'Signed in'}</div>
+              <div class="userchip-role">${Store.mode === 'supabase' ? 'Supabase user' : 'Authenticated'}</div>
+            </div>
+          </button>
+          ${dlg && dlg.type === 'account' ? html`<div class="user-menu">
+            <div class="user-menu-card">
+              <div class="user-menu-head">
+                <div class="userchip-avatar large">${userAvatar ? html`<img src=${userAvatar} alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block" />` : userInitials}</div>
+                <div>
+                  <div class="user-menu-name">${userName || userEmail || 'Signed in'}</div>
+                  <div class="user-menu-email">${userEmail || 'Google account'}</div>
+                </div>
+              </div>
+              <div class="user-menu-meta">
+                <div><span>Provider</span><strong>${Store.mode === 'supabase' ? 'Google' : 'App session'}</strong></div>
+              </div>
+              <button type="button" class="btn danger" onClick=${async () => { try { await Store.signOut(); setDlg(null); location.reload(); } catch (e) { setToasts((t) => [...t, { id: uid('t'), msg: (e && e.message) || 'Could not sign out.', kind: 'bad' }]); } }}>
+                Sign out
+              </button>
+            </div>
+          </div>` : null}
+        </div>` : null}
+        <button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'command' })} title="Quick actions (Ctrl/Cmd+K)"><${Icon} n="search" /><span class="nav-label">Quick actions</span></button>
+        <button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'appearance' })} title="Appearance"><${Icon} n="sliders" /><span class="nav-label">Appearance</span></button>
+        <button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'shortcuts' })} title="Keyboard shortcuts"><${Icon} n="info" /><span class="nav-label">Keyboard shortcuts</span></button>
+        <span class="nav-label">${Store.mode === 'cloud' || Store.mode === 'supabase' ? 'Private store, syncs across your devices' : 'Stored in this browser only'}</span>
+      </div>
     </nav>
     <main class="main" id="main" style=${inEd ? 'overflow:hidden' : ''}>${view}</main>
     ${dialogEl}
