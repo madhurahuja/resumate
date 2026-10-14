@@ -267,16 +267,18 @@ export function App() {
   }, []);
 
   if (boot.phase === 'loading') return html`<div class="empty" style="height:100%;align-content:center" role="status"><div class="brand-mark">F</div><p>Opening your resumes…</p></div>`;
-  if (boot.phase === 'auth') return html`<div class="empty" style="height:100%;align-content:center;max-width:540px;margin:0 auto" role="main">
-    <div class="brand-mark">F</div>
-    <h2>Sign in to sync with Supabase</h2>
-    <p>Use your Google account to load and sync your resumes from your private Supabase workspace.</p>
-    ${authErr && html`<div class="callout bad" role="alert">${authErr}</div>`}
-    <button type="button" class="btn primary" disabled=${authBusy} onClick=${async () => {
-      setAuthErr(''); setAuthBusy(true);
-      try { await Store.signInWithGoogle(); }
-      catch (e) { setAuthErr((e && e.message) || 'Sign-in failed.'); setAuthBusy(false); }
-    }}><${Icon} n="link" />${authBusy ? 'Opening Google sign-in…' : 'Continue with Google'}</button>
+  if (boot.phase === 'auth') return html`<div class="auth-shell" role="main">
+    <div class="auth-card">
+      <img class="auth-logo" src="/resumate.logo.gif" alt="Resumate" />
+      <h2>Sign in to sync with Supabase</h2>
+      <p class="muted">Use your Google account to load and sync your resumes from your private Supabase workspace.</p>
+      ${authErr && html`<div class="callout bad" role="alert">${authErr}</div>`}
+      <button type="button" class="btn primary" disabled=${authBusy} onClick=${async () => {
+        setAuthErr(''); setAuthBusy(true);
+        try { await Store.signInWithGoogle(); }
+        catch (e) { setAuthErr((e && e.message) || 'Sign-in failed.'); setAuthBusy(false); }
+      }}><${Icon} n="link" />${authBusy ? 'Opening Google sign-in…' : 'Continue with Google'}</button>
+    </div>
   </div>`;
   if (boot.phase === 'error') return html`<div class="empty" style="height:100%;align-content:center" role="alert"><h2>Could not open your data</h2><p>${boot.err}</p><button type="button" class="btn primary" onClick=${() => location.reload()}><${Icon} n="restore" />Try again</button></div>`;
 
@@ -306,7 +308,7 @@ export function App() {
   }
   return html`<div class=${'shell ' + (inEd ? 'in-editor' : '')}>
     <nav class="rail" aria-label="Main">
-      <div class="brand"><div class="brand-mark" aria-hidden="true">R</div><span class="brand-name">Resumate</span></div>
+      <div class="brand"><img class="brand-logo" src="/resumate.logo.png" alt="" aria-hidden="true" /><span class="brand-name">Resumate</span></div>
       ${nav.map(([k, l, ic, n]) => html`<button type="button" class="nav-btn" key=${k} aria-current=${cur === k ? 'page' : undefined} onClick=${() => api.go({ name: k })} title=${l}><${Icon} n=${ic} /><span class="nav-label">${l}</span>${n != null && html`<span class="nav-count">${n}</span>`}</button>`)}
       <div class="rail-foot"><button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'command' })} title="Quick actions (Ctrl/Cmd+K)"><${Icon} n="search" /><span class="nav-label">Quick actions</span></button><button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'appearance' })} title="Appearance"><${Icon} n="sliders" /><span class="nav-label">Appearance</span></button><button type="button" class="nav-btn" onClick=${() => api.dialog({ type: 'shortcuts' })} title="Keyboard shortcuts"><${Icon} n="info" /><span class="nav-label">Keyboard shortcuts</span></button><span class="nav-label">${Store.mode === 'cloud' || Store.mode === 'supabase' ? 'Private store, syncs across your devices' : 'Stored in this browser only'}</span></div>
     </nav>
